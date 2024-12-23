@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FallingStalagmitesController : MonoBehaviour
+{
+    private Vector2 startingposition; //starting position of stalagmites
+    [SerializeField] private PlayerDeath playerdead; //get player that dies when being hit buy stalagmites
+    [SerializeField] private FallingStalgmitesTrap stalagmiteTrap; //get trigger of stalagmites
+    [SerializeField] private float timer;
+    [SerializeField] private bool playerIsDead=false;
+    private Rigidbody2D myRigidBody; //intialize variable for rigid body
+    private float temp;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        temp = timer;
+        myRigidBody = GetComponent<Rigidbody2D>(); //get rigid body of stalagmites
+        startingposition = transform.position; //initialize starting position
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (playerdead.death == true)
+        {
+            playerIsDead = true;
+        }
+        Respawn();
+
+    }
+
+
+    void Respawn()
+    {
+        if (playerIsDead)
+        {
+
+            if (stalagmiteTrap.stHasfallen == true && stalagmiteTrap.stToRespawn == true)
+            {
+                myRigidBody.bodyType = RigidbodyType2D.Static; //set type of stalgmites to static, so as to not fall before player triggers them
+                transform.position = startingposition; //stalagmites go back to starting position
+                stalagmiteTrap.stHasfallen = false; //state of stalagmites is set to not fallen
+                stalagmiteTrap.stToRespawn = false;
+                timer = temp; //timer return to orignal value
+                playerIsDead = false;
+            }
+
+        }
+    }
+}
