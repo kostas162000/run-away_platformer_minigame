@@ -9,6 +9,8 @@ TagManager:
   - Death
   - Scorpion
   - ScorpionSting
+  - OutsideEntrance
+  - InsideEntrance
   layers:
   - Default
   - TransparentFX
@@ -17,9 +19,9 @@ TagManager:
   - Water
   - UI
   - 
-  - 
-  - 
-  - 
+  - SoliddObjects
+  - Interactable
+  - transport
   - 
   - 
   - 
