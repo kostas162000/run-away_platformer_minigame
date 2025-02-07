@@ -20,6 +20,8 @@ public class dialogmanag : MonoBehaviour
     Dialog dialog;
     int currentline = 0;
     bool istyping;
+
+    
     
     public IEnumerator showdialog(Dialog  dialog)
     {
@@ -41,6 +43,7 @@ public class dialogmanag : MonoBehaviour
             if(currentline < dialog.Lines.Count)// an einai ligotero apo to olo arithmo lines dige epomeno line
                     {
                 StartCoroutine(TYPEDIALOG(dialog.Lines[currentline]));// deige epomeno line
+
             }
             else
             {
@@ -63,5 +66,6 @@ public class dialogmanag : MonoBehaviour
         }// its going to show the text latter by letter like pokemon
 
         istyping =false;
+        
     }
 }

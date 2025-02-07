@@ -12,6 +12,8 @@ public class FallingStalagmitesController : MonoBehaviour
     private Rigidbody2D myRigidBody; //intialize variable for rigid body
     private float temp;
 
+    //[SerializeField] private float timerForStalagmite=0.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,5 +50,40 @@ public class FallingStalagmitesController : MonoBehaviour
             }
 
         }
+
+        if(StageController.flagForRespawn == 3)
+        {
+            myRigidBody.bodyType = RigidbodyType2D.Static; //set type of stalgmites to static, so as to not fall before player triggers them
+            transform.position = startingposition; //stalagmites go back to starting position
+            stalagmiteTrap.stHasfallen = false; //state of stalagmites is set to not fallen
+            stalagmiteTrap.stToRespawn = false;
+            timer = temp; //timer return to orignal value
+            playerIsDead = false;
+            StageController.flagForRespawn = 4;
+        }
     }
+
+    /*void Respawn()
+    {
+        
+
+            if (playerdead.stalagmiteToRespawn)
+            {
+                myRigidBody.bodyType = RigidbodyType2D.Static; //set type of stalgmites to static, so as to not fall before player triggers them
+                transform.position = startingposition; //stalagmites go back to starting position
+
+            timerForStalagmite -= Time.deltaTime; //when platform has fallen timer starts in order for it to respawn 
+            if (timerForStalagmite <= 0.0f)
+            {
+                playerdead.stalagmiteToRespawn = false;
+                timerForStalagmite = 0.5f;
+            }
+            //stalagmiteTrap.stHasfallen = false; //state of stalagmites is set to not fallen
+            //stalagmiteTrap.stToRespawn = false;
+            //timer = temp; //timer return to orignal value
+            //playerIsDead = false;
+        }
+
+        
+    }*/
 }

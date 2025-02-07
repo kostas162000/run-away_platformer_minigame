@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class playerTestMovement : MonoBehaviour
 {
-    [SerializeField] private Transform insideCave;
+    //[SerializeField] private Transform insideCave;
 
     public float moveSpeed = 5f;
     private bool ismoving;
@@ -14,6 +14,8 @@ public class playerTestMovement : MonoBehaviour
     [SerializeField] private LayerMask InteractablesLayer;
     private Vector2 movement;
     //private Vector2 movement;
+
+    public static bool talkedToMerchant;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +34,7 @@ public class playerTestMovement : MonoBehaviour
 
         //rb.velocity = new Vector2(movement.x, movement.y);
 
-        Debug.Log(movement.x);
+        //Debug.Log(movement.x);
 
         //movement.x = Input.GetAxisRaw("Horizontal");
         //movement.y = Input.GetAxisRaw("Vertical");
@@ -43,6 +45,7 @@ public class playerTestMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E)) //interact with key E  
             Interact();
+            
 
     }
 
@@ -55,7 +58,9 @@ public class playerTestMovement : MonoBehaviour
 
     void Interact()
     {
-        var facingDir = new Vector3(animator.GetFloat("Horizontal"), animator.GetFloat("Vertical"));
+        //Debug.Log("pressed E");
+    
+        var facingDir = new Vector3(animator.GetFloat("HorizontalTest"), animator.GetFloat("VerticalTest"));
         var interactPos = transform.position + facingDir;
 
 
@@ -68,9 +73,14 @@ public class playerTestMovement : MonoBehaviour
 
         }
 
+        /*if (collider.gameObject.tag == "Merchant")
+            talkedToMerchant = true;
+        else if (collider.gameObject.tag == null)
+            talkedToMerchant = false;
+        */
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    /*private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "OutsideEntrance")
         {
@@ -79,5 +89,5 @@ public class playerTestMovement : MonoBehaviour
             //rb.transform.position = new Vector2(0, 0);
         }
 
-    }
+    }*/
 }

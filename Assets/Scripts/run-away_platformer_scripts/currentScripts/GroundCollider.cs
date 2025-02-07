@@ -11,6 +11,7 @@ public class GroundCollider : MonoBehaviour
     private float tempS;
     private float tempJ;
 
+
     // Start is called before the first frame update
     void Start()
     {

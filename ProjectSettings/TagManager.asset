@@ -8,9 +8,14 @@ TagManager:
   - MuddyGround
   - Death
   - Scorpion
-  - ScorpionSting
   - OutsideEntrance
   - InsideEntrance
+  - TrapForMinigame
+  - ChestLock
+  - ExitMinigame
+  - Sting
+  - LavaDropBottom
+  - Merchant
   layers:
   - Default
   - TransparentFX

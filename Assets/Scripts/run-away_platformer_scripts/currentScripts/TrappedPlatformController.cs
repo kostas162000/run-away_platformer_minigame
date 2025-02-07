@@ -9,14 +9,16 @@ public class TrappedPlatformController : MonoBehaviour
     private Vector2 startingposition; //starting position for respawn
     [SerializeField] private PlayerDeath playerdead; //get player, to respawn platform when player dead
     [SerializeField] private float timer;
-    private bool hasfallen = false; //state of trapped platform (fallen or not)
-    private float temp;
+    private float timerAfterRespawn = 0.5f;
+    //private bool hasfallen = false; //state of trapped platform (fallen or not)
+    //private float temp;
 
+    private float timerForPlatform = 0.1f;
 
     // Start is called before the first frame update
     void Start()
     {
-        temp = timer;
+        //temp = timer;
         myrigidbody = GetComponent<Rigidbody2D>(); //get rigid body of platform
         startingposition = transform.position; //initialize starting position
     }
@@ -27,20 +29,21 @@ public class TrappedPlatformController : MonoBehaviour
         //rigidbody.bodyType = RigidbodyType2D.Static;
         if (playerdead.death == true)
         {
-             Respawn();
+             //Respawn();
         }
-        }
+        Respawn();
+    }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             myrigidbody.bodyType = RigidbodyType2D.Dynamic; //when player collides with platform its type becomes dynamic in order to fall
-            hasfallen = true; //state of platform is set to fallen
+            //hasfallen = true; //state of platform is set to fallen
         }
     }
 
-    void Respawn()
+    /*void Respawn()
     {
        
 
@@ -59,5 +62,43 @@ public class TrappedPlatformController : MonoBehaviour
         }
 
 
+    }*/
+
+    void Respawn()
+    {
+
+
+        if (playerdead.platformToRespawn == true)
+        {
+            
+                myrigidbody.bodyType = RigidbodyType2D.Static; //type of platofrm is set to static, so as to not fall before player collied with it
+                transform.position = startingposition; //platform goes back to starting position
+                //hasfallen = false; //state of platform is set to not fallen
+
+            timerForPlatform -= Time.deltaTime; //when platform has fallen timer starts in order for it to respawn 
+            if (timerForPlatform <= 0.0f)
+            {
+                playerdead.platformToRespawn = false;
+                timerForPlatform = 0.1f;
+            }
+                //timer = temp; //timer return to orignal value
+                
+            
+
+        }
+
+        if(StageController.flagForRespawn == 2)
+        {
+            myrigidbody.bodyType = RigidbodyType2D.Static; //type of platofrm is set to static, so as to not fall before player collied with it
+            transform.position = startingposition;
+            playerdead.platformToRespawn = false;
+            timerAfterRespawn -= Time.deltaTime; //when platform has fallen timer starts in order for it to respawn 
+            if (timerAfterRespawn <= 0.0f)
+            {
+                StageController.flagForRespawn = 3;
+                timerAfterRespawn = 0.5f;
+            }
+        }
     }
+
 }

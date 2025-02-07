@@ -5,7 +5,7 @@ using UnityEngine;
 public class ScorpionStingController : MonoBehaviour
 {
     [SerializeField] private GameObject sting;
-    private bool playerStung;
+    
     [SerializeField] private float timer;
     private float temp;
 
@@ -18,15 +18,15 @@ public class ScorpionStingController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerStung)
+        if (sting.activeSelf == false)
         {
-            sting.SetActive(false);
+            //sting.SetActive(false);
             timer -= Time.deltaTime;
             if (timer <= 0.0f) //timer for player to respawn 
             {
                 sting.SetActive(true);
                 timer = temp;
-                playerStung = false;
+                
             }
             }
     }
@@ -35,7 +35,7 @@ public class ScorpionStingController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            playerStung = true;
+            //playerStung = true;
         }
     }
 }

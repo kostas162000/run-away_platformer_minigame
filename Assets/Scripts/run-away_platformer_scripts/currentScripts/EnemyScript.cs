@@ -13,12 +13,15 @@ public class EnemyScript : MonoBehaviour
     private float temp;
     private float tmp;
 
+    private Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {
-        tmp = 0; // speed;
+        tmp =  speed;
         temp = timer;
         startingposition = transform.position; //initialize starting position
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -33,6 +36,9 @@ public class EnemyScript : MonoBehaviour
             enemyRespawned = false;
         }
         Respawn();
+
+        if (PlayerDeath.playerEscaped == true) 
+            speed = 0;
     }
 
     void Respawn()
@@ -43,12 +49,29 @@ public class EnemyScript : MonoBehaviour
             if (timer <= 0.0f)
             {
                 transform.position = startingposition; //enemy goes back to starting position
+                anim.SetBool("EnemyAttack", false);
                 speed = tmp; //speed and timer
                 timer = temp; //return to orignal values
                 enemyRespawned = true;
                 //playerdead.isdead = false; //player is now alive
             }
         }
+
+        if(StageController.flagForRespawn == 1)
+        {
+            transform.position = startingposition; //enemy goes back to starting position
+            anim.SetBool("EnemyAttack", false);
+            speed = tmp; //speed and timer
+            StageController.flagForRespawn = 2;
+        }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            anim.SetBool("EnemyAttack", true);
+            //anim.SetTrigger("EnemyAttack");
+        }
+    }
 }
