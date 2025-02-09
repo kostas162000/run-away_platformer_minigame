@@ -16,6 +16,7 @@ TagManager:
   - Sting
   - LavaDropBottom
   - Merchant
+  - Chest
   layers:
   - Default
   - TransparentFX

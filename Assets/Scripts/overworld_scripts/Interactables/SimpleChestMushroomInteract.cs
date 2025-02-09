@@ -6,7 +6,7 @@ public class SimpleChestMushroomInteract : MonoBehaviour
 {
     
     public bool simpleMushChestPickedUp = false;
-
+    public LockPickingMinigame lockPickingMinigame; // Drag the minigame GameObject here in the Inspector
     [SerializeField] private GameObject interactableKeyText;
     public bool InteractWithSimpleMushroomChest = false;
 
@@ -46,7 +46,7 @@ public class SimpleChestMushroomInteract : MonoBehaviour
         {
             //if (PlayerInChest)
             //{
-
+            lockPickingMinigame.StartMinigame();// EGO TO EBALA AUTO KAI ENERGOPOISI TO MINIGAME
             interactableKeyText.SetActive(false);
             
             //itemUI.SetActive(true);

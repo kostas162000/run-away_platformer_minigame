@@ -16,9 +16,9 @@ public class movementcharacter : MonoBehaviour
     public LayerMask transportLayer;
     private Vector2 movement;
     private bool ex;
-
-    // Update is called once per frame
-   public void HandleUpdate()   //  frames can change wich makes it unrellable
+    public LockPickingMinigame lockPickingMinigame; // Drag the minigame GameObject here in the Inspector
+                                                    // Update is called once per frame
+    public void HandleUpdate()   //  frames can change wich makes it unrellable
     {
         if (!ismoving)   
         {
@@ -62,7 +62,17 @@ public class movementcharacter : MonoBehaviour
 
         }
 
-    }
+
+       /* void OnTriggerEnter(Collider other) {
+
+
+        if (other.CompareTag("Chest")) // Check if it's the chest
+        {
+            lockPickingMinigame.StartMinigame();
+        }
+    }*/
+
+}
     IEnumerator move (Vector3 targetPos)//coroutine faction
     {
         ismoving = true;
