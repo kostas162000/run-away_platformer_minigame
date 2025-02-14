@@ -6,7 +6,7 @@ public class SimpleChestMushroomInteract : MonoBehaviour
 {
     
     public bool simpleMushChestPickedUp = false;
-    public LockPickingMinigame lockPickingMinigame; // Drag the minigame GameObject here in the Inspector
+    [SerializeField] private LockPickingMinigame lockPickingMinigame; // Drag the minigame GameObject here in the Inspector
     [SerializeField] private GameObject interactableKeyText;
     public bool InteractWithSimpleMushroomChest = false;
 

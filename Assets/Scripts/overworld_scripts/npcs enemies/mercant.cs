@@ -12,6 +12,10 @@ public class mercant : MonoBehaviour , interactable
 
     [SerializeField] private GameObject mushroomQuestFinished;
 
+    [SerializeField] private GameObject interactableKeyText;
+
+    [SerializeField] private GameObject acquiredLockpickUI;
+
     private int neededMushroomAmount = 3;
     //[SerializeField] private GameObject mushroomInfoAnswer;
 
@@ -21,38 +25,52 @@ public class mercant : MonoBehaviour , interactable
     [SerializeField] private Gamecontroller gameController;  // Reference to the game controller for inventory UI
 
 
+    public bool lockpickReceived = false;
+
     [SerializeField] Dialog dialog;
     [SerializeField] Dialog dialog1;
     [SerializeField] Dialog dialog2;
-    //[SerializeField] Dialog dialog3;
+    [SerializeField] Dialog dialog3;
 
     public void Interact()
     {
-        if (dialogueID == 0)
+        if (Gamecontroller.questCompletedID == 0)
         {
-            StartCoroutine(dialogmanag.Instance.showdialog(dialog));
-            dialogueID = 1;
-        }
-        else if (dialogueID == 1)
-        {
-            if (player.threeRedMushrooms == false)
+            if (dialogueID == 0)
             {
-                StartCoroutine(dialogmanag.Instance.showdialog(dialog1));
-                mushroomInfoButton.SetActive(true);
-                //StartCoroutine(dialogmanag.Instance.showdialog(dialog2));
-                //mushroomInfoAnswer.SetActive(true);
-                //dialogueID = 2;
+                StartCoroutine(dialogmanag.Instance.showdialog(dialog));
+                dialogueID = 1;
+            }
+            else if (dialogueID == 1)
+            {
+                if (player.redMushroomTotalCount < 3)
+                {
+                    StartCoroutine(dialogmanag.Instance.showdialog(dialog1));
+                    mushroomInfoButton.SetActive(true);
+                    //StartCoroutine(dialogmanag.Instance.showdialog(dialog2));
+                    //mushroomInfoAnswer.SetActive(true);
+                    //dialogueID = 2;
+                }
+
+                else if (player.redMushroomTotalCount >= 3)
+                {
+                    StartCoroutine(dialogmanag.Instance.showdialog(dialog2));
+                    RemoveRedMushrooms(neededMushroomAmount /*- 1*/);
+                    UpdateInventoryUI();
+                    mushroomQuestFinished.SetActive(true);
+                    Gamecontroller.questCompletedID = 1;
+                    StartCoroutine(openTextToReceiveReward());
+                    //dialogueID = 2;
+
+                }
             }
 
-            else if (player.threeRedMushrooms == true)
+            else if (dialogueID == 2)
             {
-                StartCoroutine(dialogmanag.Instance.showdialog(dialog2));
-                RemoveRedMushrooms(neededMushroomAmount - 1);
-                UpdateInventoryUI();
-                mushroomQuestFinished.SetActive(true);
+                StartCoroutine(dialogmanag.Instance.showdialog(dialog3));
+               
             }
         }
-
         
         /*else if (dialogueID == 2)
         {
@@ -79,13 +97,13 @@ public class mercant : MonoBehaviour , interactable
             playerTestMovement.talkedToMerchant = false;
         }
 
-        
+        receiveLockpick();
     }
 
 
    private void RemoveRedMushrooms(int quantity)
 {
-    int remainingToRemove = quantity;
+    //int remainingToRemove = quantity;
 
     // Iterate through inventory slots to remove all REDMUSHROOM items at once
     for (int i = 0; i < player.inventory.slots.Count; i++)
@@ -94,7 +112,11 @@ public class mercant : MonoBehaviour , interactable
         
         if (slot.type == collectableType.REDMUSHROOM)
         {
-            // Check if the slot has enough items to remove
+                for (int j = 0; j < quantity; j++)
+                {
+                    slot.removeItem();
+                }
+            /*// Check if the slot has enough items to remove
             if (slot.count >= remainingToRemove)
             {
                 slot.count -= remainingToRemove;  // Remove mushrooms from this slot
@@ -106,17 +128,17 @@ public class mercant : MonoBehaviour , interactable
             {
                 remainingToRemove -= slot.count;  // Subtract the slot's mushrooms
                 slot.removeItem();                // Remove all mushrooms from this slot
-            }
+            }*/
         }
 
-        if (remainingToRemove <= 0)
+        /*if (remainingToRemove <= 0)
         {
             break;  // Stop the loop if all mushrooms are removed
-        }
+        }*/
     }
 
     // Reset the `threeRedMushrooms` flag after removal process is done
-    player.threeRedMushrooms = false;  // Ensures it's set to false after removal
+    //player.threeRedMushrooms = false;  // Ensures it's set to false after removal
 }
 
 
@@ -125,5 +147,25 @@ public class mercant : MonoBehaviour , interactable
     {
         // Update the inventory UI by calling `SetupForInventory` from the Gamecontroller
         gameController.SetupForInventory();
+    }
+
+    private IEnumerator openTextToReceiveReward()
+    {
+        yield return new WaitForSeconds(2.5f);
+        interactableKeyText.SetActive(true);
+    }
+
+    private void receiveLockpick()
+    {
+        if (interactableKeyText.activeSelf)
+        {
+            if (Input.GetKeyUp(KeyCode.F))
+            {
+                interactableKeyText.SetActive(false);
+                lockpickReceived = true;
+                dialogueID = 2;
+                //acquiredLockpickUI.SetActive(true);
+            }
+        }
     }
 }

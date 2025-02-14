@@ -54,8 +54,17 @@ public class GroundCollider : MonoBehaviour
             grounded = true; //set state on ground
             if (player.ispoisoned == false)
             {
-                player.speed = muddyspeed;
-                player.jumpingDistance = muddyjumping;
+                if (playerInventory.runningBootsEquiped == false)
+                {
+                    player.speed = muddyspeed;
+                    player.jumpingDistance = muddyjumping;
+                }
+
+                else if(playerInventory.runningBootsEquiped == true)
+                {
+                    player.speed = tempS;
+                    player.jumpingDistance = tempJ;
+                }
             }
             else
             {

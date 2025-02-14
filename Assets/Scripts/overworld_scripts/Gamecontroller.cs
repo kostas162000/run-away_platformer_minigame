@@ -14,6 +14,10 @@ public class Gamecontroller : MonoBehaviour
     [SerializeField] private GameObject inventoryMenu;
     [SerializeField] private GameObject journalMenu;
 
+    
+    public static int questCompletedID=0;
+
+
     //[SerializeField] private GameObject MainCamera;
     private float temp;
 
@@ -36,6 +40,7 @@ public class Gamecontroller : MonoBehaviour
     }
     private void Update()
     {
+
         if (state == Gamestate.Freeroam)
         {
             //playercontroller.HandleUpdate();
@@ -55,7 +60,8 @@ public class Gamecontroller : MonoBehaviour
         }
         
 
-        if(TrapForMinigame.assignedID == 0) pauseButton();
+        if(TrapForMinigame.assignedID == 0 && BanditMovementEvent.sceneID == 0) 
+            pauseButton();
 
         //if(StageController.buttonToReturnToCheckpoint) MainCamera.SetActive(true);
     }

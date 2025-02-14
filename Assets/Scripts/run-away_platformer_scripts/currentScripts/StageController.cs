@@ -65,7 +65,7 @@ public class StageController : MonoBehaviour
         //levelid = trap.assignedID;
         //levelid = TrapForMinigame.assignedID; //comment for testing, otherwise not testing
 
-        changeIDforTesting();
+        //changeIDforTesting();
 
         if (TrapForMinigame.hasStepped == true)
         {
@@ -95,6 +95,17 @@ public class StageController : MonoBehaviour
             Enemy8.enabled = false;
             Player9.enabled = false;
             Enemy9.enabled = false;
+
+
+            Camera1.SetActive(false);
+            Camera2.SetActive(false);
+            Camera3.SetActive(false);
+            Camera4.SetActive(false);
+            Camera5.SetActive(false);
+            Camera6.SetActive(false);
+            Camera7.SetActive(false);
+            Camera8.SetActive(false);
+            Camera9.SetActive(false);
 
         }
         

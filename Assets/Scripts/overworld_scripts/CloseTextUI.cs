@@ -10,8 +10,9 @@ public class CloseTextUI : MonoBehaviour
     private SimpleMushroomInteract simpleMushroom;
     private BrownMushroomInteract brownMushroom;
     private RedMushroomInteract redMushroom;
-    private BootsChestInteract item;
+    private RunningBootsChestInteract runningBoots;
     private SimpleChestMushroomInteract mushItem;
+    //private RoomDoorOpen enteringDoor;
 
     [SerializeField] private ItemUIPopUpController UIToClose;
     // Start is called before the first frame update
@@ -20,10 +21,11 @@ public class CloseTextUI : MonoBehaviour
         if (itemPivot != null)
         {
             simpleMushroom = itemPivot.GetComponent<SimpleMushroomInteract>();
-            item = itemPivot.GetComponent<BootsChestInteract>();
+            runningBoots = itemPivot.GetComponent<RunningBootsChestInteract>();
             mushItem = itemPivot.GetComponent<SimpleChestMushroomInteract>();
             brownMushroom = itemPivot.GetComponent<BrownMushroomInteract>();
             redMushroom = itemPivot.GetComponent<RedMushroomInteract>();
+            //enteringDoor = itemPivot.GetComponent<RoomDoorOpen>();
         }
     }
 
@@ -49,9 +51,10 @@ public class CloseTextUI : MonoBehaviour
                 {
                     mushItem.InteractWithSimpleMushroomChest = false;
                 }
-                if (item != null)
+                if (runningBoots != null)
                 {
-                    item.InteractWithBootsChest = false;
+                    runningBoots.InteractWithRunningBootsChest = false;
+                    runningBoots.noLockpickText.SetActive(false);
                 }
                 if (simpleMushroom != null)
                 {
@@ -65,6 +68,10 @@ public class CloseTextUI : MonoBehaviour
                 {
                     redMushroom.InteractWithRedMushroom = false;
                 }
+                /*if(enteringDoor != null)
+                {
+                    enteringDoor.textToOpenDoor.SetActive(false);
+                }*/
             }
         }
 

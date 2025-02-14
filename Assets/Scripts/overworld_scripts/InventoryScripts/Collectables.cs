@@ -12,8 +12,9 @@ public class Collectables : MonoBehaviour
     private SimpleMushroomInteract simpleMushroom;
     private BrownMushroomInteract brownMushroom;
     private RedMushroomInteract redMushroom;
-    private BootsChestInteract item;
+    private RunningBootsChestInteract runningBoots;
     private SimpleChestMushroomInteract mushItem;
+    private mercant lockpickFromMerchant;
     
     /*[SerializeField] private MushroomInteract mushroom;
     [SerializeField] private BootsChestInteract item;
@@ -36,10 +37,11 @@ public class Collectables : MonoBehaviour
     void Start()
     {
         simpleMushroom = itemPivot.GetComponent<SimpleMushroomInteract>();
-        item = itemPivot.GetComponent<BootsChestInteract>();
+        runningBoots = itemPivot.GetComponent<RunningBootsChestInteract>();
         mushItem = itemPivot.GetComponent<SimpleChestMushroomInteract>();
         brownMushroom = itemPivot.GetComponent <BrownMushroomInteract>();
         redMushroom = itemPivot .GetComponent<RedMushroomInteract>();
+        lockpickFromMerchant = itemPivot.GetComponent<mercant>();
     }
 
     // Update is called once per frame
@@ -58,13 +60,13 @@ public class Collectables : MonoBehaviour
                 
             }
         }
-        if (item != null)
+        if (runningBoots != null)
         {
             
-            if (item.bootsPickedUp == true)
+            if (runningBoots.runningBootsPickedUp == true)
             {
                 takeItem();
-                item.bootsPickedUp = false;
+                runningBoots.runningBootsPickedUp = false;
                 /*
                 Player.inventory.Add(this);
                 //Debug.Log("Player picked up item");
@@ -76,8 +78,20 @@ public class Collectables : MonoBehaviour
                     item.itemPickedUp = false;
                     
                 }*/
+                LockPickingMinigame.pickLockSuccessfull = false;
             }
         }
+
+        if(lockpickFromMerchant != null)
+        {
+            if(lockpickFromMerchant.lockpickReceived == true)
+            {
+                //takeItem();
+                takeMultipleItems(3);
+                lockpickFromMerchant.lockpickReceived = false;
+            }
+        }
+
         if (simpleMushroom != null)
         {
             
@@ -128,10 +142,21 @@ public class Collectables : MonoBehaviour
         playerMove.enabled = false;
         Destroy(this.gameObject);
     }
+
+    private void takeMultipleItems(int n)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            Player.inventory.Add(this);
+        }
+        itemUI.SetActive(true);
+        playerMove.enabled = false;
+        Destroy(this.gameObject);
+    }
 }
 
 
 public enum collectableType
 {
-    NONE,SIMPLEMUSHROOM,BROWNMUSHROOM,REDMUSHROOM,ARMOR
+    NONE,SIMPLEMUSHROOM,BROWNMUSHROOM,REDMUSHROOM,ARMOR,RUNNINGBOOTS,LOCKPICK
 }

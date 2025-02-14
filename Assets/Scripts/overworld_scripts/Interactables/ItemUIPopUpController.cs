@@ -10,6 +10,10 @@ public class ItemUIPopUpController : MonoBehaviour
     [SerializeField] private GameObject RedMushroomUI;
     [SerializeField] private GameObject RunningBootsUI;
 
+    [SerializeField] private GameObject acquiredPickLockToolUI;
+
+    [SerializeField] private GameObject failedLockPickUI;
+
     public bool keyToCloseIsPressed=false;
     private GameObject pivot;
 
@@ -30,15 +34,21 @@ public class ItemUIPopUpController : MonoBehaviour
         }
 
         else if (BrownMushroomUI.activeSelf)
-        { 
+        {
             pivot = BrownMushroomUI;
         }
 
-        else if(RedMushroomUI.activeSelf)
+        else if (RedMushroomUI.activeSelf)
             pivot = RedMushroomUI;
-        
-        else if(RunningBootsUI.activeSelf)
+
+        else if (RunningBootsUI.activeSelf)
             pivot = RunningBootsUI;
+
+        else if (failedLockPickUI.activeSelf)
+            pivot = failedLockPickUI;
+
+        else if(acquiredPickLockToolUI)
+            pivot = acquiredPickLockToolUI;
 
         else pivot = null;
 
