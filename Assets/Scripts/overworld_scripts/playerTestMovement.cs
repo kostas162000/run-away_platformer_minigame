@@ -21,6 +21,7 @@ public class playerTestMovement : MonoBehaviour
     void Start()
     {
         //RB = GetComponent<Rigidbody2D>();
+        Cursor.visible = false;
     }
 
     // Update is called once per frame

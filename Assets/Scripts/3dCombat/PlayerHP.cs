@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement; // For scene reloading if needed
 
 
@@ -10,7 +13,11 @@ public class PlayerHealth : MonoBehaviour
 
     private Vector3 spawnPosition;      // Where the player will respawn
 
+    [SerializeField] private Animator transAnim;
+
     public static bool playerLost;
+
+    public Text healthText; // Drag your Text UI element here in the Inspector
     void Start()
     {
         // Initialize current health and record the starting spawn position.
@@ -22,12 +29,15 @@ public class PlayerHealth : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
-            currentHealth = maxHealth;
-            playerLost = true;
+            
+            StartCoroutine(transitionAnimation());
             //Respawn();
             //SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
             //BanditMovementEvent.sceneID = 0;
+            currentHealth = maxHealth;
         }
+
+        UpdateHealthUI();
     }
 
     // Call this method when the player takes damage.
@@ -36,7 +46,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= damage;
         Debug.Log("Player took " + damage + " damage. Current health: " + currentHealth);
 
-        
+        UpdateHealthUI();
     }
 
     // Respawn the player if extra lives remain; otherwise, end the game.
@@ -55,6 +65,28 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("Game Over!");
             // Optionally, reload the scene:
             // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
+
+    private IEnumerator transitionAnimation()
+    {
+        transAnim.SetTrigger("transitionStart");
+        yield return new WaitForSeconds(1.5f);
+
+        playerLost = true;
+        
+
+        transAnim.SetTrigger("transitionEnd");
+        //yield return new WaitForSeconds(0.5f);
+        
+    }
+
+    void UpdateHealthUI()
+    {
+        if (healthText != null)
+        {
+            healthText.text = "Health: " + currentHealth;
         }
     }
 }

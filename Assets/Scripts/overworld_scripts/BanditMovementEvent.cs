@@ -71,6 +71,7 @@ public class BanditMovementEvent : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            playerOutcome.restartDeadEnemies = true;
             SceneController.playerWon = false;
             PlayerHealth.playerLost = false;
             StartCoroutine(transitionAnimation());

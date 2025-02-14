@@ -121,12 +121,13 @@ public class PlayerDeath : MonoBehaviour
     {
         //while (playerRespawned == false)
         //{
-            //anim.SetBool("die", true);
+        //anim.SetBool("die", true);
         //}
         /*timer -= Time.deltaTime;
         if (timer <= 0.0f) //timer for player to respawn 
         {*/
-            transform.position = startingposition; //player goes back to starting position
+        Cursor.visible = false;
+        transform.position = startingposition; //player goes back to starting position
             anim.SetBool("die", false);
             deathcount++; //number of deaths rises
             livesRemaining = 2 - deathcount;
@@ -160,11 +161,13 @@ public class PlayerDeath : MonoBehaviour
             if (deathcount < 2) //player can respawn 3 times
             {
                 dieMenu.SetActive(true);
+                Cursor.visible = true;
             }
             else if(deathcount >= 2)
             {
 
                 permanentDieMenu.SetActive(true);
+                Cursor.visible = true;
                 if (StageController.flagForRespawn == 0)
                 {
                     deathcount = 0;

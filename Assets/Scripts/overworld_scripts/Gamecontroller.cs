@@ -70,10 +70,11 @@ public class Gamecontroller : MonoBehaviour
 
     private void pauseButton()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             Time.timeScale = 0;
             pauseMenu.SetActive(true);
+            Cursor.visible = true;
         }
     }
 
@@ -81,6 +82,7 @@ public class Gamecontroller : MonoBehaviour
     {
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
+        Cursor.visible = false;
     }
 
     public void JournalButton() 

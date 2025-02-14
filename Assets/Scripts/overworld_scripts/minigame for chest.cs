@@ -38,10 +38,10 @@ public class LockPickingMinigame : MonoBehaviour
         for (int i = (int)KeyCode.A; i <= (int)KeyCode.Z; i++)
         {
             KeyCode key = (KeyCode)i;
-            if (key != KeyCode.A && key != KeyCode.S && key != KeyCode.D && key != KeyCode.W && key != KeyCode.F && key != KeyCode.E)
+            /*if (key != KeyCode.A && key != KeyCode.S && key != KeyCode.D && key != KeyCode.W && key != KeyCode.F && key != KeyCode.E)
             {
                 allowedKeys.Add(key);
-            }
+            }*/
         }
 
         if (sequenceTextParent != null)

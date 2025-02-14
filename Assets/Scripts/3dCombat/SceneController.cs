@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SceneController : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class SceneController : MonoBehaviour
 
     public static bool playerWon = false;
 
+
     private Vector3 playerPosition;
     private Vector3 enemy1Position;
     private Vector3 enemy2Position;
@@ -25,6 +27,7 @@ public class SceneController : MonoBehaviour
     private Vector3 enemy4Position;
     private Vector3 enemy5Position;
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +74,7 @@ public class SceneController : MonoBehaviour
             enemy4.SetActive(true);
             enemy5.SetActive(true);
 
+            //restartDeadEnemoies = true;
             
         }
 
@@ -106,5 +110,7 @@ public class SceneController : MonoBehaviour
             enemy4.transform.position = enemy4Position;
             enemy5.transform.position = enemy5Position;
         }
+
+        
     }
 }

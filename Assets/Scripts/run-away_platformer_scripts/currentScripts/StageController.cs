@@ -434,14 +434,15 @@ public class StageController : MonoBehaviour
                     //backgroundPanel.SetActive(true);
                     //pausePanel.SetActive(true);
                     pauseMenu.SetActive(true);
+                    Cursor.visible = true;
                 }
 
-                if (Input.GetKeyDown(KeyCode.Return))
+                /*if (Input.GetKeyDown(KeyCode.Return))
                 {
                     Time.timeScale = 1;
                     //backgroundPanel.SetActive(false);
                     //pausePanel.SetActive(false);
-                }
+                }*/
         }
 
 
@@ -462,6 +463,7 @@ public class StageController : MonoBehaviour
         //backgroundPanel.SetActive(false);
         //pausePanel.SetActive(false);
         pauseMenu.SetActive(false);
+        Cursor.visible = false;
     }
     /*IEnumerator transitionAnimation()
     {
@@ -484,6 +486,7 @@ public class StageController : MonoBehaviour
         levelid = 0;
         buttonToReturnToCheckpoint = true;
         //flagForRespawn = 0;
+        Cursor.visible = false;
     }
 
     
